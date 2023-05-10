@@ -1,0 +1,72 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model gift {
+  id           Int            @id @default(autoincrement())
+  name         String         @db.VarChar(70)
+  point        Int
+  image        Bytes
+  description  String         @db.Text
+  gift_history gift_history[]
+}
+
+model gift_history {
+  id              Int     @id @default(autoincrement())
+  username        String  @db.VarChar(50)
+  gift_id         Int
+  amount          Int
+  net_point       Int
+  name            String  @db.VarChar(70)
+  tel             String  @db.Char(10)
+  address         String  @db.Text
+  tracking_number String? @db.Char(10)
+  gift            gift    @relation(fields: [gift_id], references: [id], onUpdate: Restrict, map: "gift_history_ibfk_1")
+  users           users   @relation(fields: [username], references: [username], onUpdate: Restrict, map: "gift_history_ibfk_2")
+
+  @@index([gift_id], map: "gift_id")
+  @@index([username], map: "username")
+}
+
+model history {
+  id              Int     @id @default(autoincrement())
+  product_id      Int
+  amount          Int
+  net_price       Int
+  name            String  @db.VarChar(70)
+  tel             String  @db.Char(10)
+  address         String  @db.Text
+  pay_image       Bytes
+  tracking_number String? @db.Char(10)
+  username        String  @db.VarChar(50)
+  product         product @relation(fields: [product_id], references: [id], onUpdate: Restrict, map: "history_ibfk_1")
+  users           users   @relation(fields: [username], references: [username], onUpdate: Restrict, map: "history_ibfk_2")
+
+  @@index([product_id], map: "product_id")
+  @@index([username], map: "username")
+}
+
+model product {
+  id          Int       @id @default(autoincrement())
+  name        String    @db.VarChar(70)
+  price       Float
+  image       Bytes
+  description String    @db.Text
+  history     history[]
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model users {
+  username     String         @id @db.VarChar(50)
+  password     String         @db.VarChar(20)
+  role         Int            @default(0)
+  point        Int            @default(0)
+  cid_image    Bytes?
+  gift_history gift_history[]
+  history      history[]
+}
