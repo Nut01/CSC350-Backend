@@ -38,7 +38,7 @@ export const createProduct = async (req, res) => {
         image: fs.readFileSync(image),
       },
     });
-    await fs.promises.unlink(image);
+    // await fs.promises.unlink(image);
     return res.status(201).json(product);
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -65,7 +65,7 @@ export const updateProduct = async (req, res) => {
       },
     });
     if (image) {
-      await fs.promises.unlink(image);
+      // await fs.promises.unlink(image);
     }
     return res.status(200).json(product);
   } catch (error) {

@@ -77,7 +77,7 @@ export const createHistory = async (req, res) => {
             }
         })
 
-        await fs.promises.unlink(req.file.path)
+        // await fs.promises.unlink(req.file.path)
         return res.status(201).json(history)
     } catch (e) {
         return res.status(500).json({message: e.message})
