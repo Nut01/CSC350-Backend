@@ -12,12 +12,17 @@ const port = 4000;
 const app = express();
 dotenv.config();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "csc-350-frontend.vercel.app",
+    credentials: true,
+  })
+);
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
-    res.send("Hello World!");
+  res.send("Hello World!");
 });
 
 app.use("/user", userRouter);
@@ -26,7 +31,6 @@ app.use("/gift", giftRouter);
 app.use("/history", historyRouter);
 app.use("/giftHistory", giftHistoryRouter);
 
-
 app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+  console.log(`Server is running on port ${port}`);
 });
