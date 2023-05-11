@@ -14,7 +14,7 @@ dotenv.config();
 
 app.use(
   cors({
-    origin: "csc-350-frontend.vercel.app",
+    origin: "https://csc-350-frontend.vercel.app/",
     credentials: true,
   })
 );
