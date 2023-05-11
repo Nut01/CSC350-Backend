@@ -12,12 +12,7 @@ const port = 4000;
 const app = express();
 dotenv.config();
 
-app.use(
-  cors({
-    origin: "https://csc-350-frontend.vercel.app",
-    credentials: true,
-  })
-);
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
