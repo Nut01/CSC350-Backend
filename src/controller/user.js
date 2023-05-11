@@ -98,7 +98,7 @@ export const createUser = async (req, res) => {
                 username: true, role: true
             }
         })
-        // await fs.promises.unlink(req.file.path)
+        await fs.promises.unlink(req.file.path)
         return res.status(201).json(user)
     } catch (e) {
         return res.status(500).json({message: e.message})

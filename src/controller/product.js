@@ -65,7 +65,7 @@ export const updateProduct = async (req, res) => {
       },
     });
     if (image) {
-      // await fs.promises.unlink(image);
+      await fs.promises.unlink(image);
     }
     return res.status(200).json(product);
   } catch (error) {
