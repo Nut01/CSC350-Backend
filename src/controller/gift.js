@@ -38,7 +38,7 @@ export const createGift = async (req, res) => {
         image: fs.readFileSync(image),
       },
     });
-    // await fs.promises.unlink(image);
+    await fs.promises.unlink(image);
     return res.status(201).json(gift);
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -64,9 +64,9 @@ export const updateGift = async (req, res) => {
         ...(image && { image: fs.readFileSync(image) }),
       },
     });
-    // if (image) {
-      // await fs.promises.unlink(image);
-    // }
+    if (image) {
+      await fs.promises.unlink(image);
+    }
     return res.status(200).json(gift);
   } catch (error) {
     return res.status(500).json({ message: error.message });
