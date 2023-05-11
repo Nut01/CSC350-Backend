@@ -17,7 +17,7 @@ const imageFilter = (req, file, cb) => {
 
 const storage = multer.diskStorage({
     destination: (_, file, cb) => {
-        const dir = path.join(process.cwd(), "tmp")
+        const dir = '/tmp'
 
         if (!fs.existsSync(dir)) {
             console.log("Creating uploads directory")
